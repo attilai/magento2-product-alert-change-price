@@ -22,7 +22,7 @@ El módulo `ProductAlertChangePrice` mejora la funcionalidad predeterminada de A
 2. Requiere el módulo a través de Composer:
 
     ```bash
-    composer require attilai/magento2-product-alert-change-price
+    composer require attilai/magento2-product-alert-change-price:dev-master
     ```
 
 3. Ejecuta el comando de actualización de Magento:
