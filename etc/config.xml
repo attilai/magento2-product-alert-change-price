@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Config/etc/config.xsd">
+    <default>
+        <catalog>
+            <productalert>
+                <price_alert_skus>12345</price_alert_skus> <!-- Default sku -->
+                <batch_size>10000</batch_size> <!-- Default value -->
+            </productalert>
+        </catalog>
+    </default>
+</config>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="catalog">
+            <group id="productalert">
+                <field id="price_alert_skus" translate="label comment" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>SKUs for Price Alert</label>
+                    <comment>Enter SKUs separated by commas for which the price change alerts should be sent.</comment>
+                </field>
+
+                <field id="batch_size" translate="label comment" type="text" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Batch Size for Processing</label>
+                    <comment>Enter the number of users to process in each batch. Default is 10000.</comment>
+                    <validate>validate-number validate-digits-range digits-range-1-1000000</validate>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

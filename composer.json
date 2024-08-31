@@ -1,0 +1,44 @@
+{
+    "name": "attilai/magento2-product-alert-change-price",
+    "description": "Custom module for Adobe Commerce 2.4.6 that enhances the Product Alert functionality with SKU filtering and batch processing.",
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "authors": [
+        {
+            "name": "Oleh Vas",
+            "email": "olegattila@gmail.com",
+            "homepage": "https://github.com/attilai",
+            "role": "Magento Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.1 || ^8.2",
+        "magento/framework": "^103.0 || ^104.0"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "OlehVas\\ProductAlertChangePrice\\": ""
+        }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/attilai/magento2-product-alert-change-price"
+        }
+    ],
+    "extra": {
+        "map": [
+            [
+                "*",
+                "OlehVas/ProductAlertChangePrice"
+            ]
+        ]
+    }
+}
