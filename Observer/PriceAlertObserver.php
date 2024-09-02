@@ -11,19 +11,32 @@ use Magento\ProductAlert\Model\ResourceModel\Price\CollectionFactory as PriceCol
 
 class PriceAlertObserver implements ObserverInterface
 {
+    /**
+     * Customer list default batch size
+     */
     private const DEFAULT_BATCH_SIZE = 1000;
 
+    /**
+     * @param ScopeConfigInterface $scopeConfig
+     * @param Publisher $publisher
+     * @param PriceCollectionFactory $priceCollectionFactory
+     */
     public function __construct(
         private readonly ScopeConfigInterface $scopeConfig,
         private readonly Publisher $publisher,
         private readonly PriceCollectionFactory $priceCollectionFactory
     ) {}
 
+    /**
+     * @param Observer $observer
+     * @return void
+     */
     public function execute(Observer $observer): void
     {
         $product = $observer->getEvent()->getProduct();
         $sku = $product->getSku();
 
+        // Get the configured SKUs from the admin configuration
         $configuredSkus = $this->scopeConfig->getValue(
             'catalog/productalert/price_alert_skus',
             ScopeInterface::SCOPE_STORE
@@ -49,26 +62,37 @@ class PriceAlertObserver implements ObserverInterface
         }
     }
 
+    /**
+     * @param array $skuList
+     * @return int
+     */
     private function getTotalCustomerCount(array $skuList): int
     {
         $alertCollection = $this->createAlertCollectionBySkus($skuList);
         return $alertCollection->getSize();
     }
 
+    /**
+     * Load alert customers with product SKU filtering in batches
+     *
+     * @param array $skuList
+     * @param int $batchSize
+     * @param int $offset
+     * @return array
+     */
     private function loadCustomerIds(array $skuList, int $batchSize, int $offset): array
     {
         $alertCollection = $this->createAlertCollectionBySkus($skuList)
             ->setPageSize($batchSize)
             ->setCurPage($offset / $batchSize + 1);
 
-        $customerIds = [];
-        foreach ($alertCollection as $item) {
-            $customerIds[] = $item->getCustomerId();
-        }
-
-        return $customerIds;
+        return $alertCollection->getColumnValues('customer_id');
     }
 
+    /**
+     * @param array $skuList
+     * @return \Magento\ProductAlert\Model\ResourceModel\Price\Collection
+     */
     private function createAlertCollectionBySkus(array $skuList)
     {
         $alertCollection = $this->priceCollectionFactory->create();
